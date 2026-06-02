@@ -1,1 +1,0 @@
-mongodb+srv://nimishakavisrinihal:HgK9R8t24eAtzbGQ@cluster0.20ageao.mongodb.net/HLDD_DB?retryWrites=true&w=majority
