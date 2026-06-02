@@ -123,7 +123,7 @@ function DeliveryDashboard() {
     if (loading) {
         return (
             <MainLayout>
-                <p className="text-gray-600">Loading delivery dashboard...</p>
+                <p className="text-gray-600">Loading partner dashboard...</p>
             </MainLayout>
         )
     }
@@ -132,7 +132,7 @@ function DeliveryDashboard() {
         <MainLayout>
             <div className="mb-6">
                 <h1 className="text-2xl font-semibold text-gray-900">
-                    Delivery Dashboard
+                    Delivery Partner Dashboard
                 </h1>
                 <p className="text-gray-500 mt-1">
                     Manage availability, location, orders, and earnings.

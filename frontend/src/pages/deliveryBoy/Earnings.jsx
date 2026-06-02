@@ -68,7 +68,7 @@ function Earnings() {
                         Earnings
                     </h1>
                     <p className="text-gray-500 mt-1">
-                        Track your delivery income and payout status.
+                        Track your earnings and payout status.
                     </p>
                 </div>
 

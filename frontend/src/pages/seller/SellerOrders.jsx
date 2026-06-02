@@ -144,7 +144,7 @@ function SellerOrders() {
 
                                     {order.deliveryBoy && (
                                         <p className="text-sm text-gray-500 mt-1">
-                                            Delivery Boy: {order.deliveryBoy.fullName} ·{" "}
+                                            Delivery Partner: {order.deliveryBoy.fullName} ·{" "}
                                             {order.deliveryBoy.mobile}
                                         </p>
                                     )}
@@ -155,7 +155,7 @@ function SellerOrders() {
                                         ₹{order.totalAmount}
                                     </p>
                                     <p className="text-sm text-gray-500">
-                                        Delivery: ₹{order.deliveryCharge || 0}
+                                        Shipping: ₹{order.deliveryCharge || 0}
                                     </p>
                                 </div>
                             </div>

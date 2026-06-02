@@ -418,7 +418,7 @@ function StoreDetails() {
                             </div>
 
                             <div className="flex justify-between text-sm text-gray-600">
-                                <span>Delivery Charge</span>
+                                <span>Shipping Charge</span>
                                 <span>₹{deliveryCharge}</span>
                             </div>
 

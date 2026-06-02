@@ -145,10 +145,10 @@ function MyOrders() {
                                     </p>
 
                                     {order.deliveryBoy && (
-                                        <p className="text-sm text-emerald-600 mt-1">
-                                            Delivery Boy: {order.deliveryBoy.fullName} ·{" "}
-                                            {order.deliveryBoy.mobile}
-                                        </p>
+                                            <p className="text-sm text-emerald-600 mt-1">
+                                                Delivery Partner: {order.deliveryBoy.fullName} ·{" "}
+                                                {order.deliveryBoy.mobile}
+                                            </p>
                                     )}
                                 </div>
 
@@ -157,7 +157,7 @@ function MyOrders() {
                                         ₹{order.totalAmount}
                                     </p>
                                     <p className="text-sm text-gray-500">
-                                        Delivery: ₹{order.deliveryCharge || 0}
+                                        Shipping: ₹{order.deliveryCharge || 0}
                                     </p>
                                 </div>
                             </div>

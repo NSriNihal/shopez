@@ -228,7 +228,7 @@ function AssignedOrders() {
                                         ₹{order.totalAmount}
                                     </p>
                                     <p className="text-sm text-gray-500">
-                                        Delivery Earn: ₹{order.deliveryCharge || 0}
+                                        Earnings: ₹{order.deliveryCharge || 0}
                                     </p>
                                 </div>
                             </div>

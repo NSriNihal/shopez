@@ -673,7 +673,7 @@ function Home() {
                             </div>
 
                             <div className="flex items-center justify-between text-sm text-gray-700">
-                                <span>Delivery charge</span>
+                                <span>Shipping charge</span>
                                 <span>₹{deliveryCharge}</span>
                             </div>
 

@@ -188,7 +188,7 @@ function TrackOrder() {
                             {tracking.liveLocation?.latitude ? (
                                 <div className="mt-4 bg-emerald-50 border border-emerald-100 rounded-lg p-4">
                                     <p className="text-sm text-gray-600">
-                                        Current delivery boy location
+                                        Current delivery partner location
                                     </p>
                                     <p className="text-lg font-semibold text-gray-900 mt-1">
                                         {tracking.liveLocation.latitude},{" "}
@@ -204,15 +204,15 @@ function TrackOrder() {
                                     </p>
                                 </div>
                             ) : (
-                                <p className="text-sm text-gray-500 mt-4">
-                                    Live location not available yet.
-                                </p>
+                                    <p className="text-sm text-gray-500 mt-4">
+                                        Live location not available yet.
+                                    </p>
                             )}
 
                             {tracking.liveLocation?.latitude && (
                                 <div className="mt-4 overflow-hidden rounded-lg border border-gray-200">
                                     <iframe
-                                    title="Delivery Boy Live Location"
+                                    title="Delivery Partner Live Location"
                                     src={`https://maps.google.com/maps?q=${tracking.liveLocation.latitude},${tracking.liveLocation.longitude}&z=15&output=embed`}
                                     className="w-full h-80"
                                     loading="lazy"
@@ -224,7 +224,7 @@ function TrackOrder() {
 
                     <aside className="bg-white border border-gray-200 rounded-lg p-5 h-fit">
                         <h2 className="font-semibold text-gray-900">
-                            Delivery Boy
+                            Delivery Partner
                         </h2>
 
                         {tracking.deliveryBoy ? (
@@ -245,7 +245,7 @@ function TrackOrder() {
                             </div>
                         ) : (
                             <p className="text-sm text-gray-500 mt-4">
-                                Delivery boy not assigned yet.
+                                Delivery partner not assigned yet.
                             </p>
                         )}
 

@@ -156,7 +156,7 @@ function DispatchOrders() {
                         Dispatch Orders
                     </h1>
                     <p className="text-gray-500 mt-1">
-                        Assign available delivery boys to accepted orders.
+                        Assign available delivery partners to accepted orders.
                     </p>
                 </div>
 
@@ -210,7 +210,7 @@ function DispatchOrders() {
                                     </p>
 
                                     <p className="text-sm text-gray-500 mt-1">
-                                        Total: ₹{order.totalAmount} · Delivery: ₹
+                                        Total: ₹{order.totalAmount} · Shipping: ₹
                                         {order.deliveryCharge || 0}
                                     </p>
 
@@ -233,7 +233,7 @@ function DispatchOrders() {
                                             }
                                             className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
                                         >
-                                            <option value="">Select delivery boy</option>
+                                            <option value="">Select delivery partner</option>
                                             {deliveryBoys.map((boy) => (
                                                 <option key={boy._id} value={boy._id}>
                                                     {boy.fullName} - {boy.mobile}
@@ -243,13 +243,13 @@ function DispatchOrders() {
 
                                         {deliveryBoys.length === 0 && (
                                             <p className="text-xs text-amber-600">
-                                                No available delivery boys right now.
+                                                No available delivery partners right now.
                                             </p>
                                         )}
 
                                         {selectedBoys[order._id] === "" && (
                                             <p className="text-xs text-gray-500">
-                                                Select a delivery boy to enable assignment.
+                                                Select a delivery partner to enable assignment.
                                             </p>
                                         )}
 
@@ -262,7 +262,7 @@ function DispatchOrders() {
                                             disabled={!selectedBoys[order._id] || deliveryBoys.length === 0 || assigningOrderId === order._id}
                                             className="w-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-md text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
-                                            {assigningOrderId === order._id ? "Assigning..." : "Assign Delivery Boy"}
+                                            {assigningOrderId === order._id ? "Assigning..." : "Assign Delivery Partner"}
                                         </button>
                                     </div>
                                 )}
