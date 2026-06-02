@@ -1,0 +1,47 @@
+/* Theme overrides: map emerald utilities to indigo colors */
+
+/* Indigo palette */
+:root{
+  --indigo-50: #eef2ff;
+  --indigo-100: #e6e9ff;
+  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;
+  --indigo-700: #4338ca;
+}
+
+.bg-emerald-600{ background-color: var(--indigo-600) !important; }
+.bg-emerald-700{ background-color: var(--indigo-700) !important; }
+.hover\:bg-emerald-700:hover{ background-color: var(--indigo-700) !important; }
+.bg-emerald-50{ background-color: var(--indigo-50) !important; }
+.bg-emerald-100{ background-color: var(--indigo-100) !important; }
+
+.text-emerald-600{ color: var(--indigo-600) !important; }
+.text-emerald-700{ color: var(--indigo-700) !important; }
+.hover\:text-emerald-600:hover{ color: var(--indigo-600) !important; }
+
+.border-emerald-100{ border-color: var(--indigo-100) !important; }
+.border-emerald-500{ border-color: var(--indigo-500) !important; }
+.border-emerald-600{ border-color: var(--indigo-600) !important; }
+
+.focus\:border-emerald-500:focus{ border-color: var(--indigo-500) !important; }
+
+.hover\:bg-emerald-50:hover{ background-color: var(--indigo-50) !important; }
+
+.accent-emerald-600{ accent-color: var(--indigo-600) !important; }
+
+.bg-emerald-50.border-emerald-100{ border-color: var(--indigo-100) !important; }
+
+/* For rounded badge backgrounds */
+.bg-emerald-100.text-emerald-700{ background-color: var(--indigo-100) !important; color: var(--indigo-700) !important; }
+
+/* Buttons */
+.bg-emerald-600.text-white{ background-color: var(--indigo-600) !important; }
+.bg-emerald-600:hover{ background-color: var(--indigo-700) !important; }
+
+/* Utility overrides for focus/hover combos */
+.hover\:bg-emerald-700:focus, .hover\:bg-emerald-700:active{ background-color: var(--indigo-700) !important; }
+
+/* Ensure outline and ring reflect new color when used */
+.focus\:ring-emerald-500:focus { box-shadow: 0 0 0 3px rgba(79,70,229,0.25) !important; }
+
+/* Anything not covered can be added here as needed */
