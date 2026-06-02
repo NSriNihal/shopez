@@ -1,0 +1,14 @@
+### Get my earnings as delivery boy
+GET http://localhost:8000/api/earnings/my
+
+### Get today's earnings as delivery boy
+GET http://localhost:8000/api/earnings/today
+
+### Get all earnings
+GET http://localhost:8000/api/earnings
+
+### Get earnings by delivery boy id
+GET http://localhost:8000/api/earnings/delivery-boy/PASTE_DELIVERY_BOY_ID_HERE
+
+### Mark earning as paid
+PUT http://localhost:8000/api/earnings/PASTE_EARNING_ID_HERE/paid

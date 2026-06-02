@@ -1,0 +1,27 @@
+
+# @token = YOUR_JWT_TOKEN
+
+### SIGN UP
+POST http://localhost:8000/api/auth/signup
+Content-Type: application/json
+
+{
+    "fullName": "nihal",
+    "email": "nihal@mail.com",
+    "password": "12345678",
+    "mobile": "1234567890",
+    "role": "user"
+}
+
+###
+POST http://localhost:8000/api/auth/signin
+Content-Tye: application/json
+
+{
+    "email":"nihal@mail.com",
+    "password":"12345678"
+}
+
+###
+POST http://localhost:8000/api/auth/signout
+p

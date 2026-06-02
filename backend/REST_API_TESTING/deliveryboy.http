@@ -1,0 +1,51 @@
+### Sign in as delivery boy
+POST http://localhost:8000/api/auth/signin
+Content-Type: application/json
+
+{
+     "email":"nihal@mail.com",
+    "password":"12345678"
+}
+
+### Get delivery boy profile
+GET http://localhost:8000/api/delivery-boy/profile
+
+### Update availability
+PUT http://localhost:8000/api/delivery-boy/availability
+Content-Type: application/json
+
+{
+    "isAvailable": true
+}
+
+### Update live location
+PUT http://localhost:8000/api/delivery-boy/location
+Content-Type: application/json
+
+{
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "orderId": "PASTE_ORDER_ID_HERE"
+}
+
+### Get assigned orders
+GET http://localhost:8000/api/delivery-boy/orders
+
+### Update order status to dispatched
+PUT http://localhost:8000/api/delivery-boy/orders/PASTE_ORDER_ID_HERE/status
+Content-Type: application/json
+
+{
+    "status": "dispatched"
+}
+
+### Update order status to delivered
+PUT http://localhost:8000/api/delivery-boy/orders/PASTE_ORDER_ID_HERE/status
+Content-Type: application/json
+
+{
+    "status": "delivered"
+}
+
+### Get delivery boy earnings
+GET http://localhost:8000/api/delivery-boy/earnings

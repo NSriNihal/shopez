@@ -1,0 +1,36 @@
+### Get available delivery boys
+GET http://localhost:8000/api/dispatch/available-delivery-boys
+
+### Assign delivery boy to order
+POST http://localhost:8000/api/dispatch/assign/PASTE_ORDER_ID_HERE
+Content-Type: application/json
+
+{
+    "deliveryBoyId": "PASTE_DELIVERY_BOY_ID_HERE",
+    "distanceInKm": 4.5
+}
+
+### Get all dispatches
+GET http://localhost:8000/api/dispatch
+
+### Get dispatch by dispatch id
+GET http://localhost:8000/api/dispatch/PASTE_DISPATCH_ID_HERE
+
+### Get dispatch by order id
+GET http://localhost:8000/api/dispatch/order/PASTE_ORDER_ID_HERE
+
+### Update dispatch status
+PUT http://localhost:8000/api/dispatch/PASTE_DISPATCH_ID_HERE/status
+Content-Type: application/json
+
+{
+    "status": "dispatched"
+}
+
+### Mark dispatch delivered
+PUT http://localhost:8000/api/dispatch/PASTE_DISPATCH_ID_HERE/status
+Content-Type: application/json
+
+{
+    "status": "delivered"
+}

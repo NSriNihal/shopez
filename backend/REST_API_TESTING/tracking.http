@@ -1,0 +1,18 @@
+### Update delivery boy location
+PUT http://localhost:8000/api/tracking/location
+Content-Type: application/json
+
+{
+    "latitude": 12.9716,
+    "longitude": 77.5946,
+    "orderId": "PASTE_ORDER_ID_HERE"
+}
+
+### Track order live location
+GET http://localhost:8000/api/tracking/order/PASTE_ORDER_ID_HERE
+
+### Get order location history
+GET http://localhost:8000/api/tracking/order/PASTE_ORDER_ID_HERE/history
+
+### Get available delivery boys location
+GET http://localhost:8000/api/tracking/available-delivery-boys

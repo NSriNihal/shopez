@@ -1,0 +1,20 @@
+### Get all open stores
+GET http://localhost:8000/api/stores
+
+### Search stores
+GET http://localhost:8000/api/stores/search?keyword=grocery
+
+### Get stores by category
+GET http://localhost:8000/api/stores/category/grocery
+
+### Get store by id
+GET http://localhost:8000/api/stores/PASTE_STORE_ID_HERE
+
+### Get store products
+GET http://localhost:8000/api/stores/PASTE_STORE_ID_HERE/products
+
+### Admin get all stores
+GET http://localhost:8000/api/stores/admin/all
+
+### Delete store
+DELETE http://localhost:8000/api/stores/PASTE_STORE_ID_HERE

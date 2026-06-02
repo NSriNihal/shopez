@@ -1,0 +1,63 @@
+### Get seller profile
+GET http://localhost:8000/api/seller/profile
+
+### Create store
+POST http://localhost:8000/api/seller/store
+Content-Type: application/json
+
+{
+    "name": "Fresh Mart",
+    "category": "grocery",
+    "address": "MG Road, Bangalore",
+    "location": {
+        "latitude": 12.9716,
+        "longitude": 77.5946
+    }
+}
+
+### Get my store
+GET http://localhost:8000/api/seller/store
+
+### Update store
+PUT http://localhost:8000/api/seller/store
+Content-Type: application/json
+
+{
+    "name": "Fresh Mart Updated",
+    "isOpen": true
+}
+
+### Add product
+POST http://localhost:8000/api/seller/products
+Content-Type: application/json
+
+{
+    "name": "Rice Bag",
+    "description": "5kg premium rice",
+    "price": 320,
+    "stock": 20,
+    "category": "grocery",
+    "image": "https://example.com/rice.jpg"
+}
+
+### Get my products
+GET http://localhost:8000/api/seller/products
+
+### Update product
+PUT http://localhost:8000/api/seller/products/PASTE_PRODUCT_ID_HERE
+Content-Type: application/json
+
+{
+    "price": 300,
+    "stock": 15,
+    "isAvailable": true
+}
+
+### Delete product
+DELETE http://localhost:8000/api/seller/products/PASTE_PRODUCT_ID_HERE
+
+### Get seller orders
+GET http://localhost:8000/api/seller/orders
+
+### Get seller dashboard
+GET http://localhost:8000/api/seller/dashboard
