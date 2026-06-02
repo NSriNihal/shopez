@@ -389,10 +389,10 @@ function Home() {
             <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div>
                     <h1 className="text-2xl font-semibold text-gray-900">
-                        Nearby Stores
+                        Stores
                     </h1>
                     <p className="text-gray-500 mt-1">
-                        Browse local groceries, pharmacies, and restaurants.
+                        Popular stores
                     </p>
                 </div>
 
@@ -477,7 +477,7 @@ function Home() {
                                 Available Products
                             </h2>
                             <p className="text-gray-500 mt-1">
-                                Products from nearby open stores.
+                                Available products
                             </p>
                         </div>
 
