@@ -421,34 +421,6 @@ function Home() {
 
     return (
         <MainLayout>
-            <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                <div>
-                    <h1 className="text-2xl font-semibold text-gray-900">
-                        Stores
-                    </h1>
-                    <p className="text-gray-500 mt-1">
-                        Popular stores
-                    </p>
-                </div>
-
-                <form onSubmit={handleSearch} className="flex gap-2">
-                    <input
-                        type="text"
-                        value={keyword}
-                        onChange={(e) => setKeyword(e.target.value)}
-                        className="w-64 border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
-                        placeholder="Search stores or products"
-                    />
-
-                    <button
-                        type="submit"
-                        className="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium"
-                    >
-                        Search
-                    </button>
-                </form>
-            </div>
-
             {message && (
                 <div className="mb-4 bg-white border border-gray-200 rounded-lg px-4 py-3 text-sm text-gray-700">
                     {message}
@@ -578,6 +550,34 @@ function Home() {
                             </div>
                         </section>
                     )}
+
+                    <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                        <div>
+                            <h1 className="text-2xl font-semibold text-gray-900">
+                                Stores
+                            </h1>
+                            <p className="text-gray-500 mt-1">
+                                Popular stores
+                            </p>
+                        </div>
+
+                        <form onSubmit={handleSearch} className="flex gap-2">
+                            <input
+                                type="text"
+                                value={keyword}
+                                onChange={(e) => setKeyword(e.target.value)}
+                                className="w-64 border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
+                                placeholder="Search stores or products"
+                            />
+
+                            <button
+                                type="submit"
+                                className="bg-gray-900 hover:bg-gray-800 text-white px-4 py-2 rounded-md text-sm font-medium"
+                            >
+                                Search
+                            </button>
+                        </form>
+                    </div>
 
                     <section>
                         {filteredStores.length === 0 ? (
