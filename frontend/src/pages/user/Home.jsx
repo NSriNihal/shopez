@@ -28,6 +28,7 @@ function Home() {
     })
     const [locationStatus, setLocationStatus] = useState("")
     const [keyword, setKeyword] = useState("")
+    const [featuredIndex, setFeaturedIndex] = useState(0)
     const [loading, setLoading] = useState(true)
     const [message, setMessage] = useState("")
 
@@ -384,6 +385,40 @@ function Home() {
         })
     }, [products, normalizedKeyword])
 
+    const featuredProducts = useMemo(() => {
+        const sourceProducts = normalizedKeyword ? filteredProducts : products
+
+        return [...sourceProducts]
+            .filter((product) => product.image && product.store?._id)
+            .sort((left, right) => {
+                const stockDelta = Number(right.stock || 0) - Number(left.stock || 0)
+
+                if (stockDelta !== 0) return stockDelta
+
+                return (
+                    new Date(right.createdAt || 0).getTime() -
+                    new Date(left.createdAt || 0).getTime()
+                )
+            })
+            .slice(0, 4)
+    }, [filteredProducts, normalizedKeyword, products])
+
+    useEffect(() => {
+        setFeaturedIndex(0)
+    }, [normalizedKeyword, products])
+
+    useEffect(() => {
+        if (featuredProducts.length <= 1) return undefined
+
+        const interval = setInterval(() => {
+            setFeaturedIndex((currentIndex) => (currentIndex + 1) % featuredProducts.length)
+        }, 4500)
+
+        return () => clearInterval(interval)
+    }, [featuredProducts.length])
+
+    const activeFeaturedProduct = featuredProducts[featuredIndex]
+
     return (
         <MainLayout>
             <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -402,7 +437,7 @@ function Home() {
                         value={keyword}
                         onChange={(e) => setKeyword(e.target.value)}
                         className="w-64 border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
-                        placeholder="Search stores"
+                        placeholder="Search stores or products"
                     />
 
                     <button
@@ -424,6 +459,126 @@ function Home() {
                 <p className="text-gray-600">Loading stores...</p>
             ) : (
                 <>
+                    {featuredProducts.length > 0 && (
+                        <section className="mb-8">
+                            <div className="relative overflow-hidden rounded-4xl border border-gray-200 bg-gray-950 shadow-xl">
+                                <div
+                                    key={activeFeaturedProduct._id}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => {
+                                        addToCart(activeFeaturedProduct)
+                                        setCartOpen(true)
+                                    }}
+                                    onKeyDown={(e) => {
+                                        if (e.key === "Enter" || e.key === " ") {
+                                            e.preventDefault()
+                                            addToCart(activeFeaturedProduct)
+                                            setCartOpen(true)
+                                        }
+                                    }}
+                                    className="group relative block min-h-80 cursor-pointer outline-none sm:min-h-96"
+                                >
+                                    <img
+                                        src={activeFeaturedProduct.image}
+                                        alt={activeFeaturedProduct.name}
+                                        className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                                    />
+
+                                    <div className="absolute inset-0 bg-linear-to-r from-black/85 via-black/45 to-black/10" />
+                                    <div className="absolute inset-0 bg-linear-to-t from-black/55 via-transparent to-transparent" />
+
+                                    <div className="absolute inset-0 flex items-end p-5 sm:p-7 lg:p-10">
+                                        <div className="max-w-2xl text-white">
+                                            <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-[0.22em]">
+                                                <span className="rounded-full bg-white/15 px-3 py-1 backdrop-blur-md">
+                                                    Top pick
+                                                </span>
+                                                <span className="rounded-full bg-emerald-400 px-3 py-1 text-gray-950">
+                                                    ₹{activeFeaturedProduct.price}
+                                                </span>
+                                            </div>
+
+                                            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+                                                {activeFeaturedProduct.name}
+                                            </h2>
+
+                                            <p className="mt-3 max-w-xl text-sm leading-6 text-white/80 sm:text-base line-clamp-2">
+                                                {activeFeaturedProduct.description || "Tap the banner to open the store and buy this product."}
+                                            </p>
+
+                                            <div className="mt-6 flex flex-wrap items-center gap-3">
+                                                <span className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-gray-950">
+                                                    {activeFeaturedProduct.store?.name}
+                                                </span>
+                                                <span className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md capitalize">
+                                                    {activeFeaturedProduct.category}
+                                                </span>
+                                                <span className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md">
+                                                    Add to cart
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {featuredProducts.length > 1 && (
+                                    <>
+                                        <button
+                                            type="button"
+                                            aria-label="Previous featured product"
+                                            onClick={(event) => {
+                                                event.stopPropagation()
+                                                setFeaturedIndex(
+                                                    (currentIndex) =>
+                                                        (currentIndex - 1 + featuredProducts.length) %
+                                                        featuredProducts.length
+                                                )
+                                            }}
+                                            className="absolute right-20 top-5 z-20 rounded-full border border-white/20 bg-black/40 px-3 py-2 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-black/60"
+                                        >
+                                            Prev
+                                        </button>
+
+                                        <button
+                                            type="button"
+                                            aria-label="Next featured product"
+                                            onClick={(event) => {
+                                                event.stopPropagation()
+                                                setFeaturedIndex(
+                                                    (currentIndex) =>
+                                                        (currentIndex + 1) % featuredProducts.length
+                                                )
+                                            }}
+                                            className="absolute right-5 top-5 z-20 rounded-full border border-white/20 bg-black/40 px-3 py-2 text-sm font-semibold text-white backdrop-blur-md transition hover:bg-black/60"
+                                        >
+                                            Next
+                                        </button>
+
+                                        <div className="absolute bottom-5 left-5 z-20 flex gap-2 sm:left-7 sm:bottom-7 lg:left-10">
+                                            {featuredProducts.map((product, index) => (
+                                                <button
+                                                    key={product._id}
+                                                    type="button"
+                                                    aria-label={`Show featured product ${index + 1}`}
+                                                    onClick={(event) => {
+                                                        event.stopPropagation()
+                                                        setFeaturedIndex(index)
+                                                    }}
+                                                    className={`h-2.5 rounded-full transition-all ${
+                                                        index === featuredIndex
+                                                            ? "w-8 bg-white"
+                                                            : "w-2.5 bg-white/45 hover:bg-white/70"
+                                                    }`}
+                                                />
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
+                            </div>
+                        </section>
+                    )}
+
                     <section>
                         {filteredStores.length === 0 ? (
                             <div className="bg-white border border-gray-200 rounded-lg p-6 text-gray-500">
@@ -435,7 +590,7 @@ function Home() {
                                     <Link
                                         key={store._id}
                                         to={`/stores/${store._id}`}
-                                        className="min-w-[280px] max-w-[280px] bg-white border border-gray-200 rounded-lg p-5 hover:border-emerald-500 transition"
+                                            className="min-w-70 max-w-70 bg-white border border-gray-200 rounded-lg p-5 hover:border-emerald-500 transition"
                                     >
                                         <div className="flex items-start justify-between gap-3">
                                             <div>
@@ -604,7 +759,7 @@ function Home() {
                                         key={item._id}
                                         className="border border-gray-200 rounded-lg p-3 flex gap-3"
                                     >
-                                        <div className="h-16 w-16 rounded-md bg-gray-100 overflow-hidden flex-shrink-0">
+                                        <div className="h-16 w-16 rounded-md bg-gray-100 overflow-hidden shrink-0">
                                             {item.image ? (
                                                 <img
                                                     src={item.image}
