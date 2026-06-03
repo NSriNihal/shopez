@@ -10,7 +10,7 @@ function MyStore() {
 
     const [formData, setFormData] = useState({
         name: "",
-        category: "grocery",
+        category: "electronics",
         address: "",
         latitude: "",
         longitude: "",
@@ -29,7 +29,7 @@ function MyStore() {
                 setStore(data)
                 setFormData({
                     name: data.name || "",
-                    category: data.category || "grocery",
+                    category: data.category || "electronics",
                     address: data.address || "",
                     latitude: data.location?.latitude || "",
                     longitude: data.location?.longitude || "",
@@ -147,9 +147,9 @@ function MyStore() {
                             onChange={handleChange}
                             className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
                         >
-                            <option value="grocery">Grocery</option>
-                            <option value="pharmacy">Pharmacy</option>
-                            <option value="restaurant">Restaurant</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="fashion">Fashion</option>
                             <option value="other">Other</option>
                         </select>
                     </div>

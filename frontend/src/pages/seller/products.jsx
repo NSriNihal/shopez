@@ -182,7 +182,7 @@ function Products() {
                             onChange={handleChange}
                             required
                             className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
-                            placeholder="Rice Bag"
+                            placeholder="Smartphone"
                         />
                     </div>
 
@@ -244,7 +244,7 @@ function Products() {
                             value={formData.category}
                             onChange={handleChange}
                             className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
-                            placeholder="grocery"
+                            placeholder="electronics"
                         />
                     </div>
 
