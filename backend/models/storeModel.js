@@ -12,8 +12,8 @@ const storeSchema = new mongoose.Schema({
     },
     category:{
         type:String,
-        enum:["grocery","pharmacy","restaurant","other"],
-        default:"other"
+        enum:["grocery","pharmacy","restaurant","electronics","clothing","fashion","other"],
+        default:"electronics"
 
     },
     address:{
