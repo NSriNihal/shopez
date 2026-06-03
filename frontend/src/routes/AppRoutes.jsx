@@ -26,6 +26,19 @@ function RootRoute() {
         return <Navigate to="/login" replace />
     }
 
+    // Redirect users to role-appropriate landing pages
+    if (user.role === "seller") {
+        return <Navigate to="/seller/dashboard" replace />
+    }
+
+    if (user.role === "deliveryBoy") {
+        return <Navigate to="/delivery-boy/dashboard" replace />
+    }
+
+    if (user.role === "admin") {
+        return <Navigate to="/admin/dashboard" replace />
+    }
+
     return <Home />
 }
 
