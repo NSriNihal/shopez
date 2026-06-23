@@ -487,7 +487,7 @@ function Home() {
                                                     {activeFeaturedProduct.category}
                                                 </span>
                                                 <span className="rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur-md">
-                                                    Add to cart
+                                                    Buy
                                                 </span>
                                             </div>
                                         </div>
@@ -708,10 +708,13 @@ function Home() {
                                             ) : (
                                                 <button
                                                     type="button"
-                                                    onClick={() => addToCart(product)}
+                                                    onClick={() => {
+                                                        addToCart(product)
+                                                        setCartOpen(true)
+                                                    }}
                                                     className="mt-4 w-full rounded-md border border-emerald-600 bg-white text-emerald-600 text-base font-semibold py-2.5 hover:bg-emerald-50"
                                                 >
-                                                    ADD
+                                                    BUY
                                                 </button>
                                             )}
                                         </div>

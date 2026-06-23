@@ -372,11 +372,14 @@ function StoreDetails() {
                                                 )}
 
                                                 <button
-                                                    onClick={() => increaseQty(product)}
+                                                    onClick={() => {
+                                                        increaseQty(product)
+                                                        document.getElementById("your-order")?.scrollIntoView({ behavior: "smooth" })
+                                                    }}
                                                     disabled={cart[product._id]?.quantity >= product.stock}
                                                     className="h-8 px-3 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white text-sm disabled:opacity-50"
                                                 >
-                                                    Add
+                                                    Buy
                                                 </button>
                                             </div>
                                         </div>
@@ -387,7 +390,7 @@ function StoreDetails() {
                     )}
                 </section>
 
-                <aside className="bg-white border border-gray-200 rounded-lg p-5 h-fit">
+                <aside id="your-order" className="bg-white border border-gray-200 rounded-lg p-5 h-fit">
                     <h2 className="text-lg font-semibold text-gray-900">
                         Your Order
                     </h2>
