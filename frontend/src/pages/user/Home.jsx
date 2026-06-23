@@ -246,6 +246,7 @@ function Home() {
         const payload = {
             storeId,
             items: cartItems.map((item) => ({
+                product: item._id,
                 name: item.name,
                 quantity: item.quantity,
                 price: item.price
@@ -663,6 +664,19 @@ function Home() {
                                             <h3 className="font-semibold text-gray-900">
                                                 {product.name}
                                             </h3>
+
+                                            {product.reviewCount > 0 ? (
+                                                <div className="flex items-center gap-1 mt-1 text-sm text-gray-600">
+                                                    <div className="flex">
+                                                        {[...Array(5)].map((_, i) => (
+                                                            <span key={i} className={`text-base leading-none ${i < Math.round(product.averageRating) ? "text-yellow-400" : "text-gray-300"}`}>★</span>
+                                                        ))}
+                                                    </div>
+                                                    <span className="text-gray-500 ml-1">({product.reviewCount})</span>
+                                                </div>
+                                            ) : (
+                                                <div className="text-xs text-gray-400 mt-1">No ratings yet</div>
+                                            )}
 
                                             <p className="text-sm text-gray-500 mt-1">
                                                 {product.store?.name}

@@ -17,6 +17,19 @@ function MyOrders() {
     const [loading, setLoading] = useState(true)
     const [refreshing, setRefreshing] = useState(false)
     const [message, setMessage] = useState("")
+    
+    // Rating modal state
+    const [ratingModal, setRatingModal] = useState({
+        isOpen: false,
+        orderId: null,
+        productId: null,
+        productName: "",
+        rating: 5,
+        comment: ""
+    })
+    const [submittingRating, setSubmittingRating] = useState(false)
+    const [ratingError, setRatingError] = useState("")
+    const [ratingSuccess, setRatingSuccess] = useState("")
 
     const fetchOrders = async ({ isRefresh = false } = {}) => {
         if (isRefresh) {
@@ -76,6 +89,64 @@ function MyOrders() {
             fetchOrders()
         } catch (error) {
             setMessage("Server error")
+        }
+    }
+
+    const openRatingModal = (orderId, product) => {
+        setRatingModal({
+            isOpen: true,
+            orderId,
+            productId: product.product,
+            productName: product.name,
+            rating: 5,
+            comment: ""
+        })
+        setRatingError("")
+        setRatingSuccess("")
+    }
+
+    const closeRatingModal = () => {
+        setRatingModal((prev) => ({ ...prev, isOpen: false }))
+    }
+
+    const submitReview = async (e) => {
+        e.preventDefault()
+        setSubmittingRating(true)
+        setRatingError("")
+        setRatingSuccess("")
+
+        try {
+            const res = await fetch(apiUrl("/reviews"), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({
+                    productId: ratingModal.productId,
+                    orderId: ratingModal.orderId,
+                    rating: ratingModal.rating,
+                    comment: ratingModal.comment
+                })
+            })
+
+            const data = await res.json()
+
+            if (!res.ok) {
+                setRatingError(data.message || "Failed to submit review")
+                setSubmittingRating(false)
+                return
+            }
+
+            setRatingSuccess("Review submitted successfully!")
+            setTimeout(() => {
+                closeRatingModal()
+                // Could refresh orders or mark locally as reviewed
+            }, 1500)
+        } catch (error) {
+            setRatingError("Server error")
+        } finally {
+            setSubmittingRating(false)
         }
     }
 
@@ -173,8 +244,16 @@ function MyOrders() {
                                             key={index}
                                             className="flex items-center justify-between text-sm bg-gray-50 rounded-md px-3 py-2"
                                         >
-                                            <span className="text-gray-700">
+                                            <span className="text-gray-700 flex items-center gap-2">
                                                 {item.name} × {item.quantity}
+                                                {order.status === "delivered" && item.product && (
+                                                    <button
+                                                        onClick={() => openRatingModal(order._id, item)}
+                                                        className="text-xs bg-gray-200 hover:bg-gray-300 px-2 py-1 rounded"
+                                                    >
+                                                        Rate
+                                                    </button>
+                                                )}
                                             </span>
                                             <span className="font-medium text-gray-900">
                                                 ₹{item.price}
@@ -205,6 +284,64 @@ function MyOrders() {
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {ratingModal.isOpen && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                    <div className="bg-white rounded-lg p-6 max-w-md w-full">
+                        <h2 className="text-lg font-semibold text-gray-900 mb-2">Rate Product</h2>
+                        <p className="text-sm text-gray-500 mb-4">You are rating: {ratingModal.productName}</p>
+
+                        <form onSubmit={submitReview}>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Rating</label>
+                                <div className="flex gap-2">
+                                    {[1, 2, 3, 4, 5].map((star) => (
+                                        <button
+                                            key={star}
+                                            type="button"
+                                            onClick={() => setRatingModal({ ...ratingModal, rating: star })}
+                                            className={`text-2xl ${ratingModal.rating >= star ? "text-yellow-400" : "text-gray-300"}`}
+                                        >
+                                            ★
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Comment (Optional)</label>
+                                <textarea
+                                    value={ratingModal.comment}
+                                    onChange={(e) => setRatingModal({ ...ratingModal, comment: e.target.value })}
+                                    rows="3"
+                                    className="w-full border border-gray-300 rounded-md px-3 py-2 outline-none focus:border-emerald-500"
+                                    placeholder="Write your review here..."
+                                ></textarea>
+                            </div>
+
+                            {ratingError && <p className="text-sm text-red-600 mb-3">{ratingError}</p>}
+                            {ratingSuccess && <p className="text-sm text-emerald-600 mb-3">{ratingSuccess}</p>}
+
+                            <div className="flex justify-end gap-2 mt-4">
+                                <button
+                                    type="button"
+                                    onClick={closeRatingModal}
+                                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={submittingRating || ratingSuccess}
+                                    className="px-4 py-2 text-sm font-medium text-white bg-emerald-600 rounded-md hover:bg-emerald-700 disabled:opacity-50"
+                                >
+                                    {submittingRating ? "Submitting..." : "Submit Review"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             )}
         </MainLayout>
